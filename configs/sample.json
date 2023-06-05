@@ -1,0 +1,21 @@
+{
+  "comments": {
+    "id": "Project id - should be unique",
+    "requestEndpoint": "URL to push data to",
+    "requestHeaders": "HTTP headers to be added to each request",
+    "requestMethod": "Push method to be used",
+    "requestsInBatch": "Concurent request count",
+    "requestPercent": "How much data from the data json should be pushed in percent",
+    "compareKeyName": "Key from the data object to be used for matching agains the response in the output log"
+  },
+  "id": "ciena-news",
+  "requestEndpoint": "http://127.0.0.1:8888/connect_mock",
+  "requestHeaders": {
+    "content-type": "application/json",
+    "X-Token": "123asd456"
+  },
+  "requestMethod": "post",
+  "requestsInBatch": 2,
+  "requestPercent": 50,
+  "compareKeyName": "id"
+}

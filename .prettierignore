@@ -1,0 +1,6 @@
+*.md
+data/*
+node_modules/
+package.json
+*.lock
+*-lock.json

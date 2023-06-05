@@ -1,0 +1,30 @@
+{
+  "name": "frodo",
+  "version": "0.0.1",
+  "description": "Tool for pushing multiple objects from an array to an API",
+  "main": "frodo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/marcinrek/frodo.git"
+  },
+  "keywords": [
+    "api",
+    "push",
+    "connect",
+    "json"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcinrek/frodo/issues"
+  },
+  "homepage": "https://github.com/marcinrek/frodo#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "chalk": "^4.1.2",
+    "date-and-time": "^3.0.0"
+  }
+}
