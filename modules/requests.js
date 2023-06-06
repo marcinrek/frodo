@@ -14,43 +14,71 @@ const singleRequestPromise = (appData, config, dataObj) => {
     let errorResponse = false;
 
     return new Promise((res) => {
-        axios({
-            method: config.requestMethod,
-            url: config.requestEndpoint,
-            headers: config.requestHeaders,
-            data: dataObj,
-        })
-            .then((response) => {
-                responsePass = response?.data;
+        // Pre-request msg
+        console.log(
+            `${chalk.green('⇄')} [${chalk.yellow(hlp.getTimestamp('HH:mm:ss'))}] Starting new request ${
+                dataObj[config.compareKeyName] ? `${config.compareKeyName} = ${chalk.green(dataObj[config.compareKeyName])}` : ''
+            }`,
+        );
+
+        try {
+            axios({
+                method: config.requestMethod,
+                url: config.requestEndpoint,
+                headers: config.requestHeaders,
+                data: dataObj,
             })
-            .catch((response) => {
-                errorResponse = true;
-                responsePass = response;
-            })
-            .finally(() => {
-                // Inc request count
-                appData.counter.pushed += 1;
+                .then((response) => {
+                    responsePass = response?.data;
+                })
+                .catch((response) => {
+                    errorResponse = true;
+                    responsePass = response;
 
-                // Display info about the current request
-                let finished = appData.counter.pushed;
-                let total = appData.counter.limit;
-                let percent = Math.round((finished / total) * 10000) / 100;
-                console.log(
-                    `${finished} of ${total} (${percent}%) [${chalk.yellow(hlp.getTimestamp('HH:mm:ss'))}] ${
-                        dataObj[config.compareKeyName] ? `Pushed ${config.compareKeyName} = ${chalk.green(dataObj[config.compareKeyName])}` : ''
-                    }`,
-                );
+                    // Log
+                    console.log(
+                        `${chalk.red('↯')} [${chalk.yellow(hlp.getTimestamp('HH:mm:ss'))}] Got error response ${
+                            dataObj[config.compareKeyName] ? `${config.compareKeyName} = ${chalk.red(dataObj[config.compareKeyName])}` : ''
+                        }`,
+                    );
+                    responsePass.compareKeyName = dataObj[config.compareKeyName] || null;
+                })
+                .finally(() => {
+                    // Inc request count
+                    appData.counter.pushed += 1;
 
-                // Log
-                const logItem = responsePass;
-                if (dataObj[config.compareKeyName]) {
-                    responsePass.compareKeyName = dataObj[config.compareKeyName];
-                }
-                appData.outputData.push(logItem);
+                    // Display info about the current request
+                    let finished = appData.counter.pushed;
+                    let total = appData.counter.limit;
+                    let percent = Math.round((finished / total) * 10000) / 100;
+                    console.log(
+                        `${chalk.cyan('⇇')} [${chalk.yellow(hlp.getTimestamp('HH:mm:ss'))}] ${finished} of ${total} (${percent}%) ${
+                            dataObj[config.compareKeyName] ? `Pushed ${config.compareKeyName} = ${chalk.green(dataObj[config.compareKeyName])}` : ''
+                        }`,
+                    );
 
-                // Resolve this crawl
-                res();
-            });
+                    // Log
+                    const logItem = responsePass;
+                    if (dataObj[config.compareKeyName]) {
+                        responsePass.compareKeyName = dataObj[config.compareKeyName];
+                    }
+                    appData.outputData.push(logItem);
+
+                    // Resolve this crawl
+                    res();
+                });
+        } catch (error) {
+            // Log
+            console.log(
+                `${chalk.red('↯')} [${chalk.yellow(hlp.getTimestamp('HH:mm:ss'))}] Got error response ${
+                    dataObj[config.compareKeyName] ? `${config.compareKeyName} = ${chalk.red(dataObj[config.compareKeyName])}` : ''
+                }`,
+            );
+            console.log(error);
+
+            // Resolve this crawl
+            res();
+        }
     });
 };
 

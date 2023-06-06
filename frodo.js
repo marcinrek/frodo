@@ -28,7 +28,7 @@ let appData = createAppData(config, hlp.getTimestamp('YYYY-MM-DD_HH-mm-ss'), dat
 // Main push function
 const frodoize = async () => {
     // There are still some requests to be done
-    if (appData.counter.pushed <= appData.counter.limit && appData.counter.pushed + config.requestsInBatch < appData.counter.limit) {
+    if (appData.counter.pushed <= appData.counter.limit && appData.counter.pushed + config.requestsInBatch <= appData.counter.limit) {
         // First request
         let dataObj = appData.data.shift();
         let r1 = singleRequestPromise(appData, config, dataObj);
