@@ -8,8 +8,8 @@
     "requestPercent": "How much data from the data json should be pushed in percent",
     "compareKeyName": "Key from the data object to be used for matching agains the response in the output log"
   },
-  "id": "ciena-news",
-  "requestEndpoint": "http://127.0.0.1:8888/connect_mock",
+  "id": "dev-test",
+  "requestEndpoint": "http://127.0.0.1:8888/api_mock",
   "requestHeaders": {
     "content-type": "application/json",
     "X-Token": "123asd456"

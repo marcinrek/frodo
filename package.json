@@ -1,6 +1,6 @@
 {
-  "name": "frodo",
-  "version": "0.0.1",
+  "name": "frodo-streamline",
+  "version": "0.1.0",
   "description": "Tool for pushing multiple objects from an array to an API",
   "main": "frodo.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/marcinrek/frodo.git"
+    "url": "https://github.com/marcinrek/frodo"
   },
   "keywords": [
     "api",
@@ -16,7 +16,13 @@
     "connect",
     "json"
   ],
-  "author": "",
+  "bin": {
+    "frodo": "bin/frodo.js"
+  },
+  "engines": {
+    "node": ">= 18.16.0"
+  },
+  "author": "Marcin Rek <m@rek> (https://github.com/marcinrek)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/marcinrek/frodo/issues"
@@ -26,5 +32,8 @@
     "axios": "^1.4.0",
     "chalk": "^4.1.2",
     "date-and-time": "^3.0.0"
+  },
+  "devDependencies": {
+    "loco-server": "^3.1.0"
   }
 }

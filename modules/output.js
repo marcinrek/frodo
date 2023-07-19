@@ -1,20 +1,22 @@
 const fs = require('fs');
 
 /**
- * Create crawl report
+ * Create report
  * @param {object} config config JSON
  * @param {object} appData application data object
+ * @param {string} outputPath out directory path
  */
-const createReport = (settings, config, appData) => {
-    const outputDir = settings.outputDirectory + '/' + appData.startTimestamp + '/';
-    const fileName = `${config.id}_${appData.startTimestamp}_report`;
-    const filePath = `${outputDir}${fileName}.json`;
+const createReport = (config, appData, outputPath) => {
+    const fileName = `${config.id}_report`;
+    const filePath = `${outputPath}/${fileName}.json`;
 
     // Write JSON to disk
-    fs.writeFile(filePath, JSON.stringify(appData.outputData, null, 4), 'utf8', (err) => {
-        if (err) throw err;
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(appData.outputData, null, 4), 'utf8');
         console.log('Report: ', filePath);
-    });
+    } catch (err) {
+        if (err) throw err;
+    }
 };
 
 module.exports = {

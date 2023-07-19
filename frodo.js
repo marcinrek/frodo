@@ -5,7 +5,8 @@ const {singleRequestPromise, buildRequestPromisArray} = require('./modules/reque
 const {createReport} = require('./modules/output');
 
 // Load app settings
-const settings = JSON.parse(fs.readFileSync('./settings.json'));
+const cwd = process.cwd();
+const settings = require(`${cwd}/frodo.settings.js`);
 
 // Load crawler config
 const config = hlp.readJSON(process.argv[2]);
@@ -45,10 +46,13 @@ const frodoize = async () => {
         appData.finished = true;
 
         // Creating output folder
-        hlp.createDirIfRequired(settings.outputDirectory + '/' + appData.startTimestamp);
+        const outputDir = `${settings.outputDirectory}/${config.id}/${appData.startTimestamp}`;
+        hlp.createDirIfRequired(settings.outputDirectory);
+        hlp.createDirIfRequired(`${settings.outputDirectory}/${config.id}`);
+        hlp.createDirIfRequired(`${settings.outputDirectory}/${config.id}/${appData.startTimestamp}`);
 
         // Crawl report
-        createReport(settings, config, appData);
+        createReport(config, appData, outputDir);
     }
 };
 

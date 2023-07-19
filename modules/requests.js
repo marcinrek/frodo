@@ -4,10 +4,10 @@ const hlp = require('./helpers');
 
 /**
  * Make a single request promise
- * @param {*} appData
- * @param {*} config
- * @param {*} dataObj
- * @returns
+ * @param {object} appData core application data object
+ * @param {object} config current run config
+ * @param {object} dataObj input data object
+ * @returns {promise}
  */
 const singleRequestPromise = (appData, config, dataObj) => {
     let responsePass;
@@ -84,9 +84,9 @@ const singleRequestPromise = (appData, config, dataObj) => {
 
 /**
  * Create array of promises with requests
- * @param {*} r1
- * @param {*} appData
- * @param {*} config
+ * @param {promise} r1 first request promise
+ * @param {object} appData application data object
+ * @param {object} config current run config
  */
 const buildRequestPromisArray = (r1, appData, config) => {
     let promiseArray = [r1];
